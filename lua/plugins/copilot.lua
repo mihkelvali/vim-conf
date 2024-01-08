@@ -59,6 +59,7 @@ return {
 
       local copilot_cmp = require("copilot_cmp")
       copilot_cmp.setup(opts)
+
       -- attach cmp source whenever copilot attaches
       -- fixes lazy-loading issues with the copilot cmp source
       require("lazyvim.util").lsp.on_attach(function(client)
@@ -74,13 +75,17 @@ return {
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
       end
+      print("copilot-cmp config")
 
       copilot_cmp.setup({
         mapping = {
           ["<Tab>"] = vim.schedule_wrap(function(fallback)
+            print("copilot tab")
             if copilot_cmp.visible() and has_words_before() then
-              copilot_cmp.select_next_item({ behavior = copilot_cmp.SelectBehavior.Select })
+              print("copilot select next")
+              -- copilot_cmp.select_next_item({ behavior = copilot_cmp.SelectBehavior.Select })
             else
+              print("fallback")
               fallback()
             end
           end),
