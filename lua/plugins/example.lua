@@ -96,7 +96,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
+      "pmizio/typescript-tools.nvim",
+      dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+      opts = {},
       init = function()
         require("lazyvim.util").on_attach(function(_, buffer)
           -- stylua: ignore
